@@ -8,5 +8,8 @@
     "name": "ktgame",
     "email": "khanhquang0912qh@gmail.com",
     "url": "https://github.com/KhanhTQ-hub"
+  },
+  "publishConfig": {
+    "registry": "http://3.25.208.95:4873"
   }
 }
