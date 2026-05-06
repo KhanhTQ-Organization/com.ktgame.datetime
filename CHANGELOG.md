@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/KhanhTQ-Organization/com.ktgame.datetime/compare/v1.0.4...v1.0.5) (2026-05-06)
+
+
+### Bug Fixes
+
+* rl ip scope ([5437c83](https://github.com/KhanhTQ-Organization/com.ktgame.datetime/commit/5437c83e1dddc5cee80db82a172abf8cde3c3a40))
+
 ## [1.0.4](https://github.com/KhanhTQ-Organization/com.ktgame.datetime/compare/v1.0.3...v1.0.4) (2025-07-04)
 
 
