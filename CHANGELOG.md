@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/KhanhTQ-Organization/com.ktgame.datetime/compare/v1.0.5...v1.0.6) (2026-08-19)
+
+
+### Bug Fixes
+
+* update ([9d61a24](https://github.com/KhanhTQ-Organization/com.ktgame.datetime/commit/9d61a245be060c47dd3260972cedc8a09f2428a7))
+
 ## [1.0.5](https://github.com/KhanhTQ-Organization/com.ktgame.datetime/compare/v1.0.4...v1.0.5) (2026-05-06)
 
 
