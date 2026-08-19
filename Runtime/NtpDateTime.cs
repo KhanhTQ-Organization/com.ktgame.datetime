@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Net;
 using System.Net.Sockets;
@@ -83,10 +83,17 @@ namespace com.ktgame.unbiased_time
 						await UniTask.SwitchToThreadPool();
 						await SynchronizeDate();
 						await UniTask.SwitchToMainThread();
-						await WaitForResponse();
+						
+						if (_responseReceived)
+						{
+							ProcessResponse();
+						}
 					}
 
-					await UniTask.DelaySeconds(RequestTimeout);
+					if (!_synchronized)
+					{
+						await UniTask.DelaySeconds(RequestTimeout);
+					}
 				}
 				else
 				{
@@ -103,7 +110,7 @@ namespace com.ktgame.unbiased_time
 			var addresses = (await Dns.GetHostEntryAsync(NtpServer)).AddressList;
 			var ipEndPoint = new IPEndPoint(addresses[0], 123);
 
-			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+			_socket = new Socket(addresses[0].AddressFamily, SocketType.Dgram, ProtocolType.Udp);
 			_socket.ReceiveTimeout = RequestTimeout * 1000;
 
 			try
@@ -122,15 +129,15 @@ namespace com.ktgame.unbiased_time
 			}
 			catch (SocketException se)
 			{
-				Debug.Log($"[NtpDateTime] NTP sync with socket exception. {se.Message}");
+				Debug.LogWarning($"[NtpDateTime] NTP sync with socket exception. {se.Message}");
 			}
 			catch (ArgumentException ae)
 			{
-				Debug.Log($"[NtpDateTime] NTP sync with argument exception. {ae.Message}");
+				Debug.LogWarning($"[NtpDateTime] NTP sync with argument exception. {ae.Message}");
 			}
 			catch (Exception e)
 			{
-				Debug.Log($"[NtpDateTime] NTP sync with exception. {e.Message}");
+				Debug.LogWarning($"[NtpDateTime] NTP sync with exception. {e.Message}");
 			}
 			finally
 			{
@@ -139,13 +146,8 @@ namespace com.ktgame.unbiased_time
 			}
 		}
 
-		private IEnumerator WaitForResponse()
+		private void ProcessResponse()
 		{
-			while (!_responseReceived)
-			{
-				yield return 0;
-			}
-
 			_responseReceivedTime = Time.realtimeSinceStartup;
 			var intPart = ((ulong)_receivedNtpData[40] << 24) | ((ulong)_receivedNtpData[41] << 16) | ((ulong)_receivedNtpData[42] << 8) | _receivedNtpData[43];
 			var fractPart = ((ulong)_receivedNtpData[44] << 24) | ((ulong)_receivedNtpData[45] << 16) | ((ulong)_receivedNtpData[46] << 8)
