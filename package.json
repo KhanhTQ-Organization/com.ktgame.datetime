@@ -2,8 +2,8 @@
   "name": "com.ktgame.datetime",
   "version": "1.0.6",
   "displayName": "com.ktgame.datetime",
-  "description": "KTgame Datetime Package\nhttps://github.com/dobrain/DobrainProWork",
-  "unity": "2019.4",
+  "description": "KTgame Datetime: NTP time with UnbiasedTime fallback (anti device-clock cheating)",
+  "unity": "2020.3",
   "author": {
     "name": "ktgame",
     "email": "khanhquang0912qh@gmail.com",

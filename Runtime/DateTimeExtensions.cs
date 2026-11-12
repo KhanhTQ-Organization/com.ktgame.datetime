@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace com.ktgame.datetime
 {
@@ -7,10 +8,16 @@ namespace com.ktgame.datetime
 		private static readonly DateTime UNIX_EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
 		public static DateTime UnixEpoch => UNIX_EPOCH;
-
+		
 		public static long ToUnixTime(this DateTime self)
 		{
 			return (long)self.Subtract(UNIX_EPOCH).TotalSeconds;
+		}
+		
+		public static long ToUnixTimeUtc(this DateTime self)
+		{
+			var utc = self.Kind == DateTimeKind.Local ? self.ToUniversalTime() : self;
+			return (long)utc.Subtract(UNIX_EPOCH).TotalSeconds;
 		}
 
 		public static DateTime FromUnixTime(this long unixTime)
@@ -45,22 +52,22 @@ namespace com.ktgame.datetime
 
 		public static string ToPattern(this DateTime self)
 		{
-			return self.ToString("yyyy/MM/dd HH:mm:ss");
+			return self.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture);
 		}
 
 		public static string ToShortDatePattern(this DateTime self)
 		{
-			return self.ToString("yyyy/MM/dd");
+			return self.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
 		}
 
 		public static string ToLongTimePattern(this DateTime self)
 		{
-			return self.ToString("HH:mm:ss");
+			return self.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
 		}
 
 		public static string ToShortTimePattern(this DateTime self)
 		{
-			return self.ToString("HH:mm");
+			return self.ToString("HH:mm", CultureInfo.InvariantCulture);
 		}
 	}
 }
