@@ -1,6 +1,6 @@
 {
   "name": "com.ktgame.datetime",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "displayName": "com.ktgame.datetime",
   "description": "KTgame Datetime: NTP time with UnbiasedTime fallback (anti device-clock cheating)",
   "unity": "2020.3",
